@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/style.css" rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <form class="form-add" th:method="POST"
+          th:action="'/user/'+${userId}+'/expenditures/add/'" th:object="${expenditure}">
+        <div class="form-group">
+            <label for="formGroupTitle">Title</label>
+            <input type="text" class="form-control" id="formGroupTitle" th:field="*{title}" placeholder="Food" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="formGroupAmount">Amount</label>
+            <input type="number" step="1.00" max ="0" class="form-control" id="formGroupAmount" th:field="*{amount}"
+                   placeholder="-00,00 "
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="formGroupDateOfTransaction">Date of transaction</label>
+            <input type="date" class="form-control" id="formGroupDateOfTransaction"
+                   th:field="*{dateOfTransaction}" placeholder="2019-01-01" required>
+        </div>
+        <input type="hidden" th:field="*{user.id}"/>
+        <input type="hidden" th:field="*{user.username}"/>
+        <input type="hidden" th:field="*{user.password}"/>
+        <div class="form-group">
+            <label>Category</label>
+            <select id="inputState" class="form-control input-sm" th:field="*{expenditureCategory}"
+                    placeholder="UNCATEGORIZED" required>
+                <option value="UNCATEGORIZED">UNCATEGORIZED</option>
+                <option value="FOOD">FOOD</option>
+                <option value="TRANSPORT">TRANSPORT</option>
+                <option value="PAYMENTS">PAYMENTS</option>
+                <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+                <option value="HOLIDAYS">HOLIDAYS</option>
+            </select>
+        </div>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+    </form>
+        
+</div>
+</body>
+</html>

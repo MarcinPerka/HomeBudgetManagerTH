@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <h3 align="center">You have been successful logged in. <br/>
+        Use navbar navigation to get in your Budget Manager.</h3>
+               
+</div>
+</div>
+<div sec:authorize="isAnonymous()">
+    <div class="container">
+            <h2 class="form-heading" align="center">Welcome to Home Budget Manager !!!</h2>
+            <a href="/registration">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Register
+                </button>
+            </a>
+            <br/>
+            <a href="/login">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Log in
+                </button>
+            </a>
+    </div>
+</div>
+</body>
+</html>

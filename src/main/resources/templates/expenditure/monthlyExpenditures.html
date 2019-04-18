@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<br/>
+    
+<form role="form" class="form-inline">
+    <a class="btn btn-success" role="button" th:href="@{/user/__${userId}__/expenditures/add}">
+        Add expenditure
+    </a>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#ModalCenter">
+        Categories
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">Expenditures by category...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped">     
+                        <thead>
+                        <tr>
+                            <th scope="col">Category</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${sumOfExpendituresByCategory}">
+                                                
+                            <td type="text" th:text="${category.getKey()}"></td>
+                                                
+                            <td type="number" step="0.01" th:text="${category.getValue()} +' zł'"></td>
+                                                
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown d inline-block">
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+            Month
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/1}">January</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/2}">February</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/3}">March</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/4}">April</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/5}">May</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/6}">June</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/7}">July</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/8}">August</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/9}">September</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/10}">October</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/11}">November</a>
+            <a class="dropdown-item" th:href="@{/user/__${userId}__/expenditures/month/12}">December</a>
+        </div>
+    </div>
+</form>
+<table class="table table-dark table-striped">     
+    <thead>
+    <tr>
+        <th class="text-center" colspan="6" scope="col"><h4>List of expenditures</h4></th>
+    </tr>
+    <tr>                  
+        <th scope="col">Title</th>
+                                
+        <th scope="col">Amount</th>
+                                
+        <th scope="col">Date of transaction</th>
+                                
+        <th scope="col">Category</th>
+
+        <th scope="col">Edit</th>
+
+        <th scope="col">Delete</th>
+                            
+    </tr>
+                    
+    </thead>
+                    
+    <tbody>
+                    
+    <tr th:each="expenditure : ${expendituresByMonth}">
+                            
+        <td type="text" th:text="${expenditure.title}"></td>
+                            
+        <td type="number" step="1.00" th:text="${expenditure.amount} +' zł'"></td>
+                            
+        <td type="date" th:text="${expenditure.dateOfTransaction}"></td>
+                            
+        <td type="text" th:text="${expenditure.expenditureCategory}"></td>
+
+        <td>
+            <a class="btn btn-success" role="button"
+               th:href="@{/user/__${userId}__/expenditures/update/__${expenditure.id}__}">
+                Edit
+            </a>
+        </td>
+                            
+        <td>
+            <a class="btn btn-danger" role="button"
+               th:href="@{/user/__${userId}__/expenditures/delete/__${expenditure.id}__}">
+                Delete
+            </a>
+        </td>
+                        
+    </tr>
+           
+    <tr>                  
+        <td scope="col"></td>
+                
+        <div th:if="${sumOfExpenditures} &lt; 0">
+            <th scope="col" step="1.00" class="text-danger" th:text="${sumOfExpenditures}+' zł'"></th>
+        </div>
+        <div th:if="${sumOfExpenditures==0}">
+            <th scope="col" step="1.00"></th>
+        </div>
+                               
+        <td scope="col"></td>
+                  
+        <td scope="col"></td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+                            
+    </tr>
+         
+    </tbody>
+            
+</table>
+    
+</body>
+</html>

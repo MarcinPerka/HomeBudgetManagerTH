@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../../static/style.css" rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+            
+<table class="table table-dark table-striped"> 
+    <thead>
+         
+    <tr>
+        <th class="text-center" colspan="3" scope="col"><h4>List of all transactions</h4></th>
+    </tr>
+                   
+    <tr>
+                                
+        <th scope="col">Title</th>
+                                
+        <th scope="col">Amount</th>
+                                
+        <th scope="col">Date of transaction</th>
+                 
+    </tr>
+                    
+    </thead>
+                    
+    <tbody>
+                    
+    <tr th:each="transaction : ${transactions}">                    
+        <td type="text" th:text="${transaction.title}"></td>
+                           
+        <td type="text" th:text="${transaction.amount}+' zł'"></td>
+                            
+        <td type="date" th:text="${transaction.dateOfTransaction}"></td>
+                     
+    </tr>
+
+    <tr>                    
+        <td></td>
+        <div th:if="${totalBalance} &gt; 0">
+            <th scope="col" step="1.00" class="text-success" th:text="${totalBalance}+' zł'"></th>
+        </div>
+        <div th:if="${totalBalance} &lt; 0">
+            <th scope="col" step="1.00" class="text-danger" th:text="${totalBalance}+' zł'"></th>
+        </div>
+        <div th:if="${totalBalance==0}">
+            <th scope="col" class="text-danger"></th>
+        </div>
+        </th>
+        <td></td>
+                     
+    </tr>
+                
+    </tbody>
+            
+</table>
+</body>
+</html>

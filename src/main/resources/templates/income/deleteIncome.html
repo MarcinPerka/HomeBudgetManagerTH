@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/style.css" rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <form class="form-delete" th:method="DELETE"
+          th:action="'/user/'+${income.getUser().getId()}+'/incomes/delete/'+${income.id}">
+        <div class="form-group">
+            <label for="formGroupTitle">Title</label>
+            <input type="text" class="form-control" id="formGroupTitle" th:field="${income.title}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="formGroupAmount">Amount</label>
+            <input type="number" class="form-control" id="formGroupAmount" th:field="${income.amount}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="formGroupDateOfTransaction">Date of transaction</label>
+            <input type="date" class="form-control" id="formGroupDateOfTransaction"
+                   th:field="${income.dateOfTransaction}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupCategory">Category</label>
+            <input type="text" class="form-control" id="formGroupCategory" th:field="${income.incomeCategory}"
+                   readonly>
+            </select>
+        </div>
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Delete</button>
+    </form>
+        
+</div>
+</body>
+</html>

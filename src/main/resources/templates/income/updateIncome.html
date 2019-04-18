@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../../static/style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <form class="form-update" th:method="PUT"
+          th:action="'/user/'+${income.getUser().getId()}+'/incomes/update/'+${income.id}"
+          th:object="${income}">
+
+        <div class="form-group">
+            <label for="formGroupTitle">Title</label>
+            <input type="text" class="form-control" id="formGroupTitle" th:field="${income.title}" required>
+        </div>
+        <div class="form-group">
+            <label for="formGroupAmount">Amount</label>
+            <input type="number" step="1.00" min="0" class="form-control" id="formGroupAmount"
+                   th:field="${income.amount}" required>
+        </div>
+        <div class="form-group">
+            <label for="formGroupDateOfTransaction">Date of transaction</label>
+            <input type="date" class="form-control" id="formGroupDateOfTransaction"
+                   th:field="${income.dateOfTransaction}" required>
+        </div>
+        <input type="hidden" th:field="*{user.id}" />
+        <input type="hidden" th:field="*{user.username}" />
+        <input type="hidden" th:field="*{user.password}" />
+        <div class="form-group">
+            <label>Category</label>
+            <select id="inputState" class="form-control input-sm" th:field="${income.incomeCategory}" required>
+                <option value="UNCATEGORIZED">UNCATEGORIZED</option>
+                <option value="STUDY">STUDY</option>
+                <option value="WORK">WORK</option>
+                <option value="PARENTS">PARENTS</option>
+            </select>
+        </div>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Update</button>
+    </form>
+        
+</div>
+</body>
+</html>
