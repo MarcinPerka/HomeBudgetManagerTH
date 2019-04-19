@@ -35,7 +35,7 @@ public class ExpenditureController {
         model.addAttribute("expenditures", expenditures);
         model.addAttribute("sumOfExpenditures", sumOfExpenditures);
         model.addAttribute("sumOfExpendituresByCategory", sumOfExpendituresByCategory);
-        return "expenditure/expenditures";
+        return "expenditures/expenditures";
     }
 
     @GetMapping("/expenditures/month/{month}")
@@ -47,7 +47,7 @@ public class ExpenditureController {
         model.addAttribute("expendituresByMonth", expendituresByMonth);
         model.addAttribute("sumOfExpenditures", sumOfExpendituresByMonth);
         model.addAttribute("sumOfExpendituresByCategory", sumOfExpendituresByMonthAndCategory);
-        return "expenditure/monthlyExpenditures";
+        return "expenditures/monthlyExpenditures";
     }
 
     @DeleteMapping("/expenditures/delete/{id}")
@@ -60,7 +60,7 @@ public class ExpenditureController {
     public String showDeleteForm(@PathVariable Long userId, Model model, @PathVariable Long id) {
         Expenditure expenditure = expenditureService.getExpenditureById(userId, id);
         model.addAttribute("expenditure", expenditure);
-        return "expenditure/deleteExpenditure";
+        return "expenditures/deleteExpenditure";
     }
 
     @PostMapping("/expenditures/add")
@@ -74,7 +74,7 @@ public class ExpenditureController {
     public String showAddForm(@PathVariable Long userId, Model model, Expenditure expenditure) {
         model.addAttribute("userId", userId);
         model.addAttribute("expenditure", expenditure);
-        return "expenditure/addExpenditure";
+        return "expenditures/addExpenditure";
     }
 
     @PutMapping("/expenditures/update/{id}")
@@ -88,7 +88,7 @@ public class ExpenditureController {
     public String showUpdateForm(@PathVariable Long userId, Model model, @PathVariable Long id) {
         Expenditure expenditure = expenditureService.getExpenditureById(userId, id);
         model.addAttribute("expenditure", expenditure);
-        return "expenditure/updateExpenditure";
+        return "expenditures/updateExpenditure";
     }
 
     @InitBinder

@@ -25,14 +25,14 @@ public class UserController {
     public String getAllUsers(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "user/users";
+        return "users/users";
     }
 
     @GetMapping("/user/{id}")
     public String getUser(@PathVariable Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "user/user";
+        return "users/user";
     }
 
     @GetMapping("/registration")
@@ -46,7 +46,7 @@ public class UserController {
         return "auth/login";
     }
 
-    @PutMapping("user/{id}")
+    @PutMapping("user/update/{id}")
     public String updateUser(User user, @PathVariable Long id) throws Exception {
         userService.updateUser(user, id);
         return "redirect:/user/{id}";
@@ -56,11 +56,11 @@ public class UserController {
     public String showUpdateForm(Model model, @PathVariable Long id) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "user/updateUser";
+        return "users/updateUser";
     }
 
     @PreAuthorize("#id == authentication.principal.id OR hasRole('ADMIN')")
-    @DeleteMapping("user/{id}")
+    @DeleteMapping("user/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return "redirect:/registration";
@@ -70,6 +70,6 @@ public class UserController {
     public String showDeleteForm(Model model, @PathVariable Long id) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "user/deleteUser";
+        return "users/deleteUser";
     }
 }

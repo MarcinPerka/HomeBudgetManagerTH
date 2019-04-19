@@ -13,8 +13,7 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <form class="form-add" th:method="POST"
-          th:action="'/user/'+${userId}+'/incomes/add/'" th:object="${income}">
+    <form class="form-add" method="POST" th:object="${income}">
         <div class="form-group">
             <label for="formGroupTitle">Title</label>
             <input type="text" class="form-control" id="formGroupTitle" th:field="*{title}" placeholder="Parents" required autofocus>

@@ -13,8 +13,7 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <form class="form-delete" th:method="DELETE"
-          th:action="'/user/'+${expenditure.getUser().getId()}+'/expenditures/delete/'+${expenditure.id}">
+    <form class="form-delete" th:method="DELETE">
         <div class="form-group">
             <label for="formGroupTitle">Title</label>
             <input type="text" class="form-control" id="formGroupTitle" th:field="${expenditure.title}" readonly>

@@ -15,16 +15,14 @@
 <div th:replace="fragments/navbar :: navbar"></div>
              
 <div class="container">
-    <form class="form" th:method="PUT"
-          th:action="'/user/'+${user.id}"
-          th:object="${user}">
+    <form class="form" th:method="PUT" th:object="${user}">
         <div class="form-group">
             <label for="formGroupUsername">Username</label>
             <input type="text" class="form-control" id="formGroupUsername" th:field="${user.username}" required>
         </div>
         <div class="form-group">
             <label for="formGroupEmail">Email</label>
-            <input type="text" class="form-control" id="formGroupEmail" th:field="${user.email}" required>
+            <input type="email" class="form-control" id="formGroupEmail" th:field="${user.email}" required>
         </div>
         <div class="form-group">
             <label for="formGroupPassword">Password</label>

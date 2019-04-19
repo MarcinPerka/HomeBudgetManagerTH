@@ -35,7 +35,7 @@ public class IncomeController {
         model.addAttribute("incomes", incomes);
         model.addAttribute("sumOfIncomes", sumOfIncomes);
         model.addAttribute("sumOfIncomesByCategory", sumOfIncomesByCategory);
-        return "income/incomes";
+        return "incomes/incomes";
     }
 
     @GetMapping("/incomes/month/{month}")
@@ -47,7 +47,7 @@ public class IncomeController {
         model.addAttribute("incomesByMonth", incomesByMonth);
         model.addAttribute("sumOfIncomes", sumOfIncomesByMonth);
         model.addAttribute("sumOfIncomesByCategory", sumOfIncomesByMonthAndCategory);
-        return "income/monthlyIncomes";
+        return "incomes/monthlyIncomes";
     }
 
     @DeleteMapping("/incomes/delete/{id}")
@@ -60,7 +60,7 @@ public class IncomeController {
     public String showDeleteForm(@PathVariable Long userId, Model model, @PathVariable Long id) {
         Income income = incomeService.getIncomeById(userId, id);
         model.addAttribute("income", income);
-        return "income/deleteIncome";
+        return "incomes/deleteIncome";
     }
 
     @PostMapping("/incomes/add")
@@ -74,7 +74,7 @@ public class IncomeController {
     public String showAddForm(@PathVariable Long userId, Model model, Income income) {
         model.addAttribute("userId", userId);
         model.addAttribute("income", income);
-        return "income/addIncome";
+        return "incomes/addIncome";
     }
 
     @PutMapping("/incomes/update/{id}")
@@ -88,7 +88,7 @@ public class IncomeController {
     public String showUpdateForm(@PathVariable Long userId, Model model, @PathVariable Long id) {
         Income income = incomeService.getIncomeById(userId, id);
         model.addAttribute("income", income);
-        return "income/updateIncome";
+        return "incomes/updateIncome";
     }
 
     @InitBinder
