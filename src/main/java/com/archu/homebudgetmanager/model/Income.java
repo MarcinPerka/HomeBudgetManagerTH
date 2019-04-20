@@ -16,6 +16,8 @@ public class Income extends Transaction {
     @Column(name = "income_category", columnDefinition = "ENUM('STUDY', 'WORK','PARENTS', 'UNCATEGORIZED')")
     private IncomeCategory incomeCategory;
 
+    public enum IncomeCategory {STUDY, WORK, PARENTS, UNCATEGORIZED;}
+
     Income() {
     }
 

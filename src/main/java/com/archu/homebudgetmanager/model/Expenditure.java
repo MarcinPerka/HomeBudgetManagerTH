@@ -17,6 +17,8 @@ public class Expenditure extends Transaction {
     @Column(name = "expenditure_category", columnDefinition = "ENUM('FOOD', 'TRANSPORT', 'PAYMENTS', 'ENTERTAINMENT','HOLIDAYS', 'UNCATEGORIZED')")
     private ExpenditureCategory expenditureCategory;
 
+    public enum ExpenditureCategory {FOOD, TRANSPORT, PAYMENTS, ENTERTAINMENT, HOLIDAYS, UNCATEGORIZED;}
+
     Expenditure() {
     }
 
