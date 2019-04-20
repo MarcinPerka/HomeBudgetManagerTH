@@ -4,8 +4,6 @@ import com.archu.homebudgetmanager.model.User;
 import com.archu.homebudgetmanager.model.UserDetailsImpl;
 import com.archu.homebudgetmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

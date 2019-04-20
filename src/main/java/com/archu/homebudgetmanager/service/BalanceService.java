@@ -26,10 +26,8 @@ public class BalanceService {
     @PreAuthorize("#userId == authentication.principal.id OR hasRole('ROLE_ADMIN')")
     public List<Transaction> getAllTransactions(Long userId) {
         List<Transaction> transactions = new ArrayList<>();
-        incomeRepository.findByUserId(userId)
-                .forEach(transactions::add);
-        expenditureRepository.findByUserId(userId)
-                .forEach(transactions::add);
+        transactions.addAll(incomeRepository.findByUserId(userId));
+        transactions.addAll(expenditureRepository.findByUserId(userId));
         return transactions;
     }
 

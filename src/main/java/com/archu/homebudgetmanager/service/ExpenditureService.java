@@ -26,8 +26,7 @@ public class ExpenditureService {
     @PreAuthorize("#userId == authentication.principal.id OR hasRole('ADMIN')")
     public List<Expenditure> getAllExpenditures(Long userId) {
         List<Expenditure> expenditures = new ArrayList<>();
-        expenditureRepository.findByUserId(userId)
-                .forEach(expenditures::add);
+        expenditures.addAll(expenditureRepository.findByUserId(userId));
         return expenditures;
     }
 
@@ -59,7 +58,7 @@ public class ExpenditureService {
     @PreAuthorize("#userId == authentication.principal.id OR hasRole('ADMIN')")
     public BigDecimal getSumOfExpenditures(Long userId) {
         BigDecimal sumOfExpenditures = expenditureRepository.findSumOfExpendituresByUserId(userId);
-        if(sumOfExpenditures == null)
+        if (sumOfExpenditures == null)
             return BigDecimal.ZERO;
         return sumOfExpenditures;
     }
@@ -67,7 +66,7 @@ public class ExpenditureService {
     @PreAuthorize("#userId == authentication.principal.id OR hasRole('ADMIN')")
     public BigDecimal getSumOfExpendituresByMonth(Long userId, Integer month) {
         BigDecimal sumOfExpendituresByMonth = expenditureRepository.findSumOfExpendituresByUserIdAndMonth(userId, month);
-        if(sumOfExpendituresByMonth == null)
+        if (sumOfExpendituresByMonth == null)
             return BigDecimal.ZERO;
         return sumOfExpendituresByMonth;
     }
@@ -101,9 +100,12 @@ public class ExpenditureService {
     public void updateExpenditure(Expenditure expenditure, Long id) {
         Expenditure expenditureToUpdate = expenditureRepository.findById(id).orElse(null);
 
-        if (expenditureToUpdate == null)
-
-            expenditure.setId(id);
-        expenditureRepository.save(expenditure);
+        if (expenditureToUpdate != null) {
+            expenditureToUpdate.setTitle(expenditure.getTitle());
+            expenditureToUpdate.setAmount(expenditure.getAmount());
+            expenditureToUpdate.setDateOfTransaction(expenditure.getDateOfTransaction());
+            expenditureToUpdate.setExpenditureCategory(expenditure.getExpenditureCategory());
+            expenditureRepository.save(expenditureToUpdate);
+        }
     }
 }

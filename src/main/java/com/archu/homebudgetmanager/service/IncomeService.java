@@ -25,8 +25,7 @@ public class IncomeService {
     @PreAuthorize("#userId == authentication.principal.id OR hasRole('ADMIN')")
     public List<Income> getAllIncomes(Long userId) {
         List<Income> incomes = new ArrayList<>();
-        incomeRepository.findByUserId(userId)
-                .forEach(incomes::add);
+        incomes.addAll(incomeRepository.findByUserId(userId));
         return incomes;
     }
 
@@ -99,9 +98,12 @@ public class IncomeService {
     public void updateIncome(Income income, Long id) {
         Income incomeToUpdate = incomeRepository.findById(id).orElse(null);
 
-        if (incomeToUpdate == null)
-
-            income.setId(id);
-        incomeRepository.save(income);
+        if (incomeToUpdate != null) {
+            incomeToUpdate.setTitle(income.getTitle());
+            incomeToUpdate.setAmount(income.getAmount());
+            incomeToUpdate.setDateOfTransaction(income.getDateOfTransaction());
+            incomeToUpdate.setIncomeCategory(income.getIncomeCategory());
+            incomeRepository.save(income);
+        }
     }
 }
