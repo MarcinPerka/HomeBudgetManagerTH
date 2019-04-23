@@ -75,11 +75,11 @@ public class ExpenditureService {
     public Map<String, BigDecimal> getSumOfExpendituresByMonthAndCategory(Long userId, Integer month) {
         Map<String, BigDecimal> sumExpendituresByMonthAndCategory = new HashMap<>();
         List<Expenditure> expenditures = getExpendituresByMonth(userId, month);
-        expenditures.forEach((income) -> {
-            if (sumExpendituresByMonthAndCategory.containsKey(income.getExpenditureCategory().name())) {
-                sumExpendituresByMonthAndCategory.put(income.getExpenditureCategory().name(), sumExpendituresByMonthAndCategory.get(income.getAmount()));
+        expenditures.forEach((expenditure) -> {
+            if (sumExpendituresByMonthAndCategory.containsKey(expenditure.getExpenditureCategory().name())) {
+                sumExpendituresByMonthAndCategory.put(expenditure.getExpenditureCategory().name(), sumExpendituresByMonthAndCategory.get(expenditure.getAmount()));
             } else {
-                sumExpendituresByMonthAndCategory.put(income.getExpenditureCategory().name(), new BigDecimal(String.valueOf(income.getAmount())));
+                sumExpendituresByMonthAndCategory.put(expenditure.getExpenditureCategory().name(), new BigDecimal(String.valueOf(expenditure.getAmount())));
             }
 
         });
