@@ -11,59 +11,63 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 </head>
 <body>
-        <div th:replace="fragments/navbar :: navbar"></div>
-                              
-        <table class="table">
-                         
-            <caption>List of users</caption>
-               
-            <thead class="thead-dark">
-                                
-            <tr>
-                                        
-                <th scope="col">Id</th>
-                                        
-                <th scope="col">Username</th>
-                                        
-                <th scope="col">Password</th>
-                                        
-                <th scope="col">Email</th>
+<div th:replace="fragments/navbar :: navbar"></div>
+                      
+<table class="table">
+                 
+    <caption>List of users</caption>
+       
+    <thead class="thead-dark">
+                        
+    <tr>
+                                
+        <th scope="col">Id</th>
+                                
+        <th scope="col">Username</th>
+                                
+        <th scope="col">Password</th>
+                                
+        <th scope="col">Email</th>
 
-                <th scope="col">Edit</th>
+        <th scope="col">Edit</th>
 
-                <th scope="col">Delete</th>
-                                    
-            </tr>
-                            
-            </thead>
-                            
-            <tbody>
-                            
-            <tr th:each="user : ${users}">
+        <th scope="col">Delete</th>
+                            
+    </tr>
+                    
+    </thead>
+                    
+    <tbody>
+                    
+    <tr th:each="user : ${users}">
 
-                <td th:text="${user.id}"></td>
-                                    
-                <td th:text="${user.username}"></td>
-                                    
-                <td th:text="${user.password}"></td>
-                                    
-                <td th:text="${user.email}"></td>
+        <td th:text="${user.id}"></td>
+                            
+        <td th:text="${user.username}"></td>
+                            
+        <td th:text="${user.password}"></td>
+                            
+        <td th:text="${user.email}"></td>
 
-                <td>
-                    <button type="button" class="btn btn-success" a th:href="@{/{id}(id=${user.id})}">Edit
-                    </button>
-                </td>
-                                    
-                <td>
-                    <button type="button" class="btn btn-danger" a th:href="@{/{id}(id=${user.id})}">Delete
-                    </button>
-                </td>
-                                
-            </tr>
-                        
-            </tbody>
-                    
-        </table>
-          
+        <td>
+            <a class="btn btn-success" role="button"
+               th:href="@{/user/update/__${user.id}__}">
+                Edit
+            </a>
+        </td>
+                            
+        <td>
+            <a class="btn btn-danger" role="button"
+               th:href="@{/user/delete/__${user.id}__}">
+                Delete
+            </a>
+        </td>
+                        
+    </tr>
+                
+    </tbody>
+            
+</table>
+  
 </body>
 </html>
