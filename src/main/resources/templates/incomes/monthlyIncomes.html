@@ -16,8 +16,8 @@
 <br/>
     
     <form role="form" class="form-inline">
-<a class="btn btn-success" role="button" th:href="@{/user/__${userId}__/expenditures/add}">
-    Add expenditure
+<a class="btn btn-success" role="button" th:href="@{/user/__${userId}__/incomes/add}">
+    Add income
 </a>
 
 <!-- Button trigger modal -->
@@ -32,7 +32,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalLongTitle">Expenditures by category...</h5>
+                <h5 class="modal-title" id="ModalLongTitle">Incomes by category...</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,14 +119,14 @@
 
         <td>
             <a class="btn btn-success"role="button"
-               th:href="@{/user/__${userId}__/expenditures/update/__${income.id}__}">
+               th:href="@{/user/__${userId}__/incomes/update/__${income.id}__}">
                 Edit
             </a>
         </td>
                             
         <td>
             <a class="btn btn-danger" role="button"
-               th:href="@{/user/__${userId}__/expenditures/delete/__${income.id}__}">
+               th:href="@{/user/__${userId}__/incomes/delete/__${income.id}__}">
                 Delete
             </a>
         </td>

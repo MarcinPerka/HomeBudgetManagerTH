@@ -16,14 +16,13 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class="container">
             <form class="form-update" th:method="PUT" th:object="${expenditure}">
-
                 <div class="form-group">
                     <label for="formGroupTitle">Title</label>
                     <input type="text" class="form-control" id="formGroupTitle" th:field="${expenditure.title}" required>
                 </div>
                 <div class="form-group">
                     <label for="formGroupAmount">Amount</label>
-                    <input type="number" step="1.00" max="0" class="form-control" id="formGroupAmount"
+                    <input type="number" step=".01" max="0" class="form-control" id="formGroupAmount"
                            th:field="${expenditure.amount}" required>
                 </div>
                 <div class="form-group">

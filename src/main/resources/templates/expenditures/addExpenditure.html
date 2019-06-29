@@ -13,15 +13,15 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <form class="form-add" method="POST" th:object="${expenditure}">
+    <form class="form-add" th:method="POST" th:object="${expenditure}">
         <div class="form-group">
             <label for="formGroupTitle">Title</label>
             <input type="text" class="form-control" id="formGroupTitle" th:field="*{title}" placeholder="Food" required autofocus>
         </div>
         <div class="form-group">
             <label for="formGroupAmount">Amount</label>
-            <input type="number" step="1.00" max ="0" class="form-control" id="formGroupAmount" th:field="*{amount}"
-                   placeholder="-00,00 "
+            <input type="number" step=".01" max ="0" class="form-control" id="formGroupAmount" th:field="*{amount}"
+                   placeholder="-00.00 "
                    required>
         </div>
         <div class="form-group">
