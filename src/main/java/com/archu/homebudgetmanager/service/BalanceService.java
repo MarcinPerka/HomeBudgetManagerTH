@@ -42,4 +42,10 @@ public class BalanceService {
 
         return sumOfIncomes.add(sumOfExpenditures);
     }
+
+    @PreAuthorize("#userId == authentication.principal.id OR hasRole('ADMIN')")
+    public BigDecimal getBalanceByMonth(Long userId, Integer month) {
+        return incomeRepository.findSumOfIncomesByMonth(userId, month)
+                .add(expenditureRepository.findSumOfExpendituresByUserIdAndMonth(userId, month));
+    }
 }

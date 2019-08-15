@@ -26,7 +26,7 @@ public class Role implements Serializable {
     @Column(name = "label")
     private String label;
 
-    Role() {
+    public Role() {
     }
 
     public Long getId() {

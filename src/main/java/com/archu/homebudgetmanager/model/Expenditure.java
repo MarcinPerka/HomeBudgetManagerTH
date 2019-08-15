@@ -17,10 +17,12 @@ public class Expenditure extends Transaction {
     @Column(name = "expenditure_category", columnDefinition = "ENUM('FOOD', 'TRANSPORT', 'PAYMENTS', 'ENTERTAINMENT','HOLIDAYS', 'UNCATEGORIZED')")
     private ExpenditureCategory expenditureCategory;
 
+    public Expenditure() {
+
+    }
+
     public enum ExpenditureCategory {FOOD, TRANSPORT, PAYMENTS, ENTERTAINMENT, HOLIDAYS, UNCATEGORIZED;}
 
-    Expenditure() {
-    }
 
     public Expenditure(String title, BigDecimal amount, Date dateOfTransaction, ExpenditureCategory expenditureCategory) {
         this.title = title;

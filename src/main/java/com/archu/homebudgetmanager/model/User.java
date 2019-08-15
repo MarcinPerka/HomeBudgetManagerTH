@@ -54,7 +54,7 @@ public class User implements Serializable {
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
-    User() {
+    public User() {
     }
 
     public User(String username, String password, String email) {

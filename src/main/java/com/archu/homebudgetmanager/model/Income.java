@@ -18,7 +18,7 @@ public class Income extends Transaction {
 
     public enum IncomeCategory {STUDY, WORK, PARENTS, UNCATEGORIZED;}
 
-    Income() {
+    public Income() {
     }
 
     public Income(String title, BigDecimal amount, Date dateOfTransaction, IncomeCategory incomeCategory) {
