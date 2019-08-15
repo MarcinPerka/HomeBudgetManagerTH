@@ -10,15 +10,15 @@ The WebApp allows:
 
 ## Technology stack
 - Spring Boot
-- Spring Data JPA
 - Spring Security
 - Hibernate
 - MySQL
-- REST
 - Maven
 - Thymeleaf
 - Bootstrap
 - HTML5
+- JUnit
+- Mockito
 
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/44239776/56386396-f11a8280-6221-11e9-93c2-4af02ca7e6a4.PNG">

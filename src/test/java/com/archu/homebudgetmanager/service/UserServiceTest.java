@@ -1,4 +1,4 @@
-package com.archu.homebudgetmanager;
+package com.archu.homebudgetmanager.service;
 
 
 import com.archu.homebudgetmanager.exception.UserAlreadyExistAuthenticationException;

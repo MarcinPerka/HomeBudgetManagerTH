@@ -1,20 +1,20 @@
-package com.archu.homebudgetmanager;
+package com.archu.homebudgetmanager.controller;
 
 import com.archu.homebudgetmanager.model.Expenditure;
 import com.archu.homebudgetmanager.model.Income;
 import com.archu.homebudgetmanager.model.Transaction;
 import com.archu.homebudgetmanager.model.User;
-import com.archu.homebudgetmanager.repository.ExpenditureRepository;
-import com.archu.homebudgetmanager.repository.IncomeRepository;
 import com.archu.homebudgetmanager.service.BalanceService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,31 +22,30 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class BalanceServiceTest {
+@AutoConfigureMockMvc(secure = false)
+public class BalanceControllerTest {
 
     @InjectMocks
+    private BalanceController balanceController;
+
+    @Mock
     private BalanceService balanceService;
 
-    @Mock
-    private ExpenditureRepository expenditureRepository;
-
-    @Mock
-    private IncomeRepository incomeRepository;
-
+    private MockMvc mockMvc;
     private User user;
     private Income income1, income2, income3;
     private Expenditure expenditure1, expenditure2, expenditure3;
 
     @Before
     public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(balanceController).build();
+
         user = new User("test", "test", "test@gmail.com");
         ReflectionTestUtils.setField(user, "id", 1L);
         income1 = new Income("Parents", new BigDecimal(900.39), new Date(2019, 10, 1), Income.IncomeCategory.PARENTS);
@@ -92,45 +91,14 @@ public class BalanceServiceTest {
     }
 
     @Test
-    public void testGetAllTransactions() {
+    public void testGetAllTransactions() throws Exception {
         List<Transaction> transactions = new ArrayList<>(Arrays.asList(income1, income2, income3, expenditure1, expenditure2, expenditure3));
-        List<Income> incomes = new ArrayList<>(Arrays.asList(income1, income2, income3));
-        List<Expenditure> expenditures = new ArrayList<>(Arrays.asList(expenditure1, expenditure2, expenditure3));
 
-        when(incomeRepository.findByUserId(user.getId())).thenReturn(incomes);
-        when(expenditureRepository.findByUserId(user.getId())).thenReturn(expenditures);
-        List<Transaction> found = balanceService.getAllTransactions(user.getId());
-        assertThat(found).isEqualTo(transactions);
-        verify(incomeRepository).findByUserId(anyLong());
-        verify(expenditureRepository).findByUserId(anyLong());
-
+        when(balanceService.getAllTransactions(user.getId())).thenReturn(transactions);
+        mockMvc.perform(get("/user/{userId}/balance", 1))
+                .andExpect(view().name("balance/balance"))
+                .andExpect(status().isOk());
+        verify(balanceService).getAllTransactions(anyLong());
     }
 
-    @Test
-    public void testGetBalanceByMonth() {
-        BigDecimal incomesSum = income1.getAmount().add(income3.getAmount());
-        BigDecimal expendituresSum = expenditure1.getAmount().add(expenditure3.getAmount());
-        BigDecimal balance = incomesSum.add(expendituresSum);
-
-        when(incomeRepository.findSumOfIncomesByMonth(user.getId(), 10)).thenReturn(incomesSum);
-        when(expenditureRepository.findSumOfExpendituresByUserIdAndMonth(user.getId(), 10)).thenReturn(expendituresSum);
-        BigDecimal found = balanceService.getBalanceByMonth(user.getId(), 10);
-        assertThat(found).isEqualTo(balance);
-        verify(incomeRepository).findSumOfIncomesByMonth(anyLong(), anyInt());
-        verify(expenditureRepository).findSumOfExpendituresByUserIdAndMonth(anyLong(), anyInt());
-    }
-
-    @Test
-    public void testGetTotalBalance() {
-        BigDecimal incomesSum = income1.getAmount().add(income3.getAmount()).add(income2.getAmount());
-        BigDecimal expendituresSum = expenditure1.getAmount().add(expenditure3.getAmount()).add(expenditure2.getAmount());
-        BigDecimal balance = incomesSum.add(expendituresSum);
-
-        when(incomeRepository.findSumOfIncomesByUserId(user.getId())).thenReturn(incomesSum);
-        when(expenditureRepository.findSumOfExpendituresByUserId(user.getId())).thenReturn(expendituresSum);
-        BigDecimal found = balanceService.getTotalBalance(user.getId());
-        assertThat(found).isEqualTo(balance);
-        verify(incomeRepository).findSumOfIncomesByUserId(anyLong());
-        verify(expenditureRepository).findSumOfExpendituresByUserId(anyLong());
-    }
 }
